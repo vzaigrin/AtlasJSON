@@ -1,0 +1,6 @@
+.DS_Store
+.idea/*
+project/target/*
+target/scala-2.13/resolution-cache/*
+target/streams/*
+target/scala-2.13/classes/*

@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="572b6c37-8f73-4b93-9a73-eda4aaf24ce1" name="Default Changelist" comment="" />
+    <list default="true" id="572b6c37-8f73-4b93-9a73-eda4aaf24ce1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/target/.sbt-compilation-infos/atlasjson-test/.sbt-idea-lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/.history" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/atlasjson_2.13-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/atlasjson_2.13-1.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/0.1/resolved.xml.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/0.1/resolved.xml.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/1.0/resolved.xml.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/1.0/resolved.xml.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/1.0/resolved.xml.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/default/atlasjson_2.13/1.0/resolved.xml.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/org.scala-sbt.temp/temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0/1.2.5/resolved.xml.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/org.scala-sbt.temp/temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0/1.2.5/resolved.xml.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-compile-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-compile-internal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-compile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-compile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-optional.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-optional.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-provided.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-provided.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-runtime-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-runtime-internal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-runtime.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-runtime.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-scala-tool.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-scala-tool.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-test-internal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-test-internal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/default-atlasjson_2.13-test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/org.scala-sbt.temp-temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0-compile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/org.scala-sbt.temp-temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0-optional.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/org.scala-sbt.temp-temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0-provided.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/org.scala-sbt.temp-temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0-runtime.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/resolution-cache/reports/org.scala-sbt.temp-temp-module-52f238aede5a1d8d7a484c2bec27a144810e2ac0-test.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/test-classes/extractor/atlas/ArgsTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-2.13/test-classes/extractor/atlas/AtlasTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/$global/dumpStructure/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/console/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/ivyConfiguration/$global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/$global/ivyConfiguration/$global/streams/out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/ssExtractDependencies/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/testListeners/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/out" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.13/output" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/$global/update/$global/streams/update_cache_2.13/output" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/compileIncSetup/$global/streams/inc_compile_2.13.zip" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/compile/compileIncSetup/$global/streams/inc_compile_2.13.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/console/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/console/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/exportedProducts/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/fullClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/compile/packageBin/$global/streams/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/target/streams/compile/packageBin/$global/streams/inputs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/exportedProducts/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/externalDependencyClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/managedClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/unmanagedClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/runtime/unmanagedJars/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/$global/$global/definedTestNames/data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/$global/$global/discoveredMainClasses/data" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/compile/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/compileIncSetup/$global/streams/inc_compile_2.13.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/compileIncremental/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/compileIncremental/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/copyResources/$global/streams/copy-resources" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/copyResources/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/definedTests/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/dependencyClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/exportedProducts/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/externalDependencyClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/fullClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/internalDependencyClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/loadedTestFrameworks/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/managedClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/test/$global/streams/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/test/$global/streams/succeeded_tests" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/test/isModule=false name=extractor.atlas.ArgsTest/test/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/test/isModule=false name=extractor.atlas.AtlasTest/test/out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/unmanagedClasspath/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/streams/test/unmanagedJars/$global/streams/export" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-reports/TEST-extractor.atlas.ArgsTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-reports/TEST-extractor.atlas.AtlasTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-reports/extractor.atlas.ArgsTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-reports/extractor.atlas.AtlasTest.xml" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/project/project/target/" />
@@ -45,11 +119,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/extractor/atlas/AtlasJSON.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="810">
+            <state relative-caret-position="88">
               <caret line="54" selection-start-line="54" selection-end-line="54" />
               <folding>
                 <element signature="e#25#65#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/extractor/atlas/AtlasTest.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -77,6 +160,10 @@
       <replace>Args</replace>
     </replaceStrings>
   </component>
+  <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -100,6 +187,7 @@
     <option name="width" value="1680" />
     <option name="height" value="947" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -169,6 +257,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/scala" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.1289833" />
@@ -429,7 +518,7 @@
     <frame x="0" y="23" width="1680" height="947" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17399268" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17399268" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Learn" order="2" weight="0.32967034" />
       <window_info id="Designer" order="3" />
@@ -446,7 +535,7 @@
       <window_info anchor="bottom" id="Educational.CheckDetails" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.32982457" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32982457" />
-      <window_info anchor="bottom" id="Version Control" order="11" />
+      <window_info anchor="bottom" id="Version Control" order="11" weight="0.32982457" />
       <window_info anchor="bottom" id="Build" order="12" weight="0.32982457" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32982457" />
       <window_info anchor="right" id="Coverage" side_tool="true" weight="0.32967034" />
@@ -526,13 +615,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/extractor/atlas/AtlasTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/extractor/atlas/ArgsTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -565,9 +647,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/extractor/atlas/AtlasTest.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/extractor/atlas/AtlasJSON.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
+        <state relative-caret-position="88">
           <caret line="54" selection-start-line="54" selection-end-line="54" />
           <folding>
             <element signature="e#25#65#0" expanded="true" />
