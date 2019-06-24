@@ -1,0 +1,7 @@
+typeName: Type Name
+attribute.owner: Owner
+attribute.name: Name
+attribute.qualifiedName: Qualified Name
+displayText: Display Text
+status: Status
+attribute.createTime: Create Time

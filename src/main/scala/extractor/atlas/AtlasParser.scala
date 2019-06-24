@@ -8,14 +8,42 @@ case class Attribute(owner: Option[String],
                      qualifiedName: Option[String],
                      name: Option[String],
                      description: Option[String]
-                    )
+                    ) {
+  def get(field: String): String = {
+    field match {
+      case "owner" => owner.getOrElse("")
+      case "createTime" => createTime.getOrElse("")
+      case "qualifiedName" => qualifiedName.getOrElse("")
+      case "name" => name.getOrElse("")
+      case "description" => description.getOrElse("")
+      case f => s"no such variable attribute.$f"
+    }
+  }
+}
+
 case class Entity(typeName: Option[String],
                   attributes: Attribute,
                   guid: Option[String],
                   status: Option[String],
                   displayText: Option[String],
                   classificationNames: List[Option[String]]
-                 )
+                 ) {
+  def get(field: String): String = {
+    field.split('.').toList match {
+      case "attribute" :: n :: Nil => attributes.get(n)
+      case n :: Nil => n match {
+        case "typeName" => typeName.getOrElse("")
+        case "guid" => guid.getOrElse("")
+        case "status" => status.getOrElse("")
+        case "displayText" => displayText.getOrElse("")
+        case "classificationNames" => classificationNames.map(_.getOrElse("")).mkString(" ")
+        case f => s"no such variable $f"
+      }
+      case f => s"no such variable $f"
+    }
+  }
+}
+
 case class SearchParameters(typeName: Option[String],
                             excludeDeletedEntities: Boolean,
                             includeClassificationAttributes: Boolean,

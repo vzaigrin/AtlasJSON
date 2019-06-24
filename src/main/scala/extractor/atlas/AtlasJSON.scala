@@ -3,25 +3,71 @@ package extractor.atlas
 import scala.io.{BufferedSource, Source}
 import java.io.{File, FileInputStream, FileOutputStream}
 import java.text.SimpleDateFormat
+import java.util
 import java.util.Calendar
-import org.apache.poi.xssf.usermodel.{XSSFRow, XSSFSheet, XSSFWorkbook}
+
+import org.apache.poi.ss.usermodel.{HorizontalAlignment, VerticalAlignment}
+import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFCellStyle, XSSFRow, XSSFSheet, XSSFWorkbook}
+import org.snakeyaml.engine.v1.api.{Load, LoadSettings, LoadSettingsBuilder}
+
+import scala.jdk.CollectionConverters._
 
 object AtlasJSON extends App {
 
+  // Function to parse config file and check fields to extract
+  def parseConfig(filename: String): List[(String, String)] = {
+    def isExist(field: String): Boolean = {
+      field match {
+        case "typeName" => true
+        case "attribute.owner" => true
+        case "attribute.createTime" => true
+        case "attribute.qualifiedName" => true
+        case "attribute.name" => true
+        case "attribute.description" => true
+        case "guid" => true
+        case "status" => true
+        case "displayText" => true
+        case "classificationNames" => true
+        case _ => false
+      }
+    }
+
+    val settings: LoadSettings = new LoadSettingsBuilder().build()
+    val load: Load = new Load(settings)
+
+    val fields: List[(String, String)] = try
+      load
+        .loadFromInputStream(new FileInputStream(new File(filename)))
+        .asInstanceOf[util.LinkedHashMap[String, String]]
+        .asScala
+        .toList
+    catch {
+      case e: Exception =>
+        println(s"Error processing configuration file $filename: ${e.getMessage}")
+        sys.exit(-1)
+    }
+
+    fields.filter(f => !isExist(f._1)).foreach(f => println(s"WARNING: no such field $f"))
+    fields.filter(f => isExist(f._1))
+  }
+
   // Parse command line arguments
-  val a: Args = try Args(args.toList)
+  val arg: Args = try Args(args.toList)
   catch {
     case e: Exception =>
       Args.usage(e.getMessage)
       sys.exit(-1)
     }
 
+  // Get fields to extract from Config file
+  val fields: List[(String, String)] = parseConfig(arg.configFilename)
+
   // Open inout JSON file
-  val jsonFile: BufferedSource = Source.fromFile(a.jsonFilename)
+  val jsonFile: BufferedSource = Source.fromFile(arg.jsonFilename)
   val lines: String = try jsonFile.getLines.mkString
   catch {
     case e: Exception =>
-      println(s"Error reading JSON file ${a.jsonFilename}: ${e.getMessage}")
+      println(s"Error reading JSON file ${arg.jsonFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
   finally {
@@ -32,18 +78,17 @@ object AtlasJSON extends App {
   val report: AtlasReport = try AtlasReport(lines)
   catch {
     case e: Exception =>
-      println(s"Error processing JSON file ${a.jsonFilename}: ${e.getMessage}")
+      println(s"Error processing JSON file ${arg.jsonFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
 
   // Open or create Excel file
   val workbook: XSSFWorkbook =
-    if (a.add)
-      try new XSSFWorkbook(new FileInputStream(new File(a.excelFilename)))
+    if (new File(arg.excelFilename).exists())
+      try new XSSFWorkbook(new FileInputStream(new File(arg.excelFilename)))
       catch {
-        case _: java.io.FileNotFoundException => new XSSFWorkbook()
         case e: Exception =>
-          println(s"Error creating excel file ${a.excelFilename}: ${e.getMessage}")
+          println(s"Error creating excel file ${arg.excelFilename}: ${e.getMessage}")
           sys.exit(-1)
       }
     else new XSSFWorkbook()
@@ -57,37 +102,47 @@ object AtlasJSON extends App {
       workbook.createSheet(typeName + today)
     case e: Exception =>
       println(e)
-      println(s"Error creating sheet $typeName in Excel file ${a.excelFilename}: ${e.getMessage}")
+      println(s"Error creating sheet $typeName in Excel file ${arg.excelFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
 
   // Create a header for new sheet
-  val row0 = sheet.createRow(0)
-  row0.createCell(0).setCellValue("typeName")
-  row0.createCell(1).setCellValue("owner")
-  row0.createCell(2).setCellValue("name")
-  row0.createCell(3).setCellValue("qualifiedName")
-  row0.createCell(4).setCellValue("displayText")
-  row0.createCell(5).setCellValue("status")
+  val row0: XSSFRow = sheet.createRow(0)
+
+  val font = workbook.createFont()
+  font.setBold(true)
+  font.setItalic(false)
+
+  val style = row0.getRowStyle
+  /*
+  style.setAlignment(HorizontalAlignment.CENTER)
+  style.setVerticalAlignment(VerticalAlignment.CENTER)
+  style.setFont(font)
+  */
+
+  var c: Int = 0
+  fields.foreach { f =>
+    row0.createCell(c).setCellValue(f._2)
+    c = c + 1
+  }
 
   // Put all entities on the new sheet
   var r: Int = 1
   report.entities.foreach { e =>
     val row: XSSFRow = sheet.createRow(r)
-    row.createCell(0).setCellValue(e.typeName.getOrElse(""))
-    row.createCell(1).setCellValue(e.attributes.owner.getOrElse(""))
-    row.createCell(2).setCellValue(e.attributes.name.getOrElse(""))
-    row.createCell(3).setCellValue(e.attributes.qualifiedName.getOrElse(""))
-    row.createCell(4).setCellValue(e.displayText.getOrElse(""))
-    row.createCell(5).setCellValue(e.status.getOrElse(""))
+    c = 0
+    fields.foreach { f =>
+      row.createCell(c).setCellValue(e.get(f._1))
+      c = c + 1
+    }
     r += 1
   }
 
   // Write and close Excel file
-  try workbook.write(new FileOutputStream(a.excelFilename))
+  try workbook.write(new FileOutputStream(arg.excelFilename))
   catch {
     case e: Exception =>
-      println(s"Error writing Excel file ${a.excelFilename}: ${e.getMessage}")
+      println(s"Error writing Excel file ${arg.excelFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
   finally {
