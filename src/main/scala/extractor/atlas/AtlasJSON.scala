@@ -16,21 +16,10 @@ object AtlasJSON extends App {
 
   // Function to parse config file and check fields to extract
   def parseConfig(filename: String): List[(String, String)] = {
-    def isExist(field: String): Boolean = {
-      field match {
-        case "typeName" => true
-        case "attribute.owner" => true
-        case "attribute.createTime" => true
-        case "attribute.qualifiedName" => true
-        case "attribute.name" => true
-        case "attribute.description" => true
-        case "guid" => true
-        case "status" => true
-        case "displayText" => true
-        case "classificationNames" => true
-        case _ => false
-      }
-    }
+    def isExist(field: String): Boolean = 
+      List("typeName", "attribute.owner", "attribute.createTime", "attribute.qualifiedName",
+        "attribute.name", "attribute.description", "guid", "status", "displayText",
+        "classificationNames").contains(field)
 
     val settings: LoadSettings = new LoadSettingsBuilder().build()
     val load: Load = new Load(settings)
@@ -107,19 +96,18 @@ object AtlasJSON extends App {
   }
 
   // Create a header for new sheet
-  val row0: XSSFRow = sheet.createRow(0)
-
   val font = workbook.createFont()
   font.setBold(true)
   font.setItalic(false)
 
-  val style = row0.getRowStyle
-  /*
+  val style = workbook.createCellStyle
   style.setAlignment(HorizontalAlignment.CENTER)
   style.setVerticalAlignment(VerticalAlignment.CENTER)
   style.setFont(font)
-  */
-
+  
+  val row0: XSSFRow = sheet.createRow(0)
+  row0.setRowStyle(rowStyle)
+  
   var c: Int = 0
   fields.foreach { f =>
     row0.createCell(c).setCellValue(f._2)
