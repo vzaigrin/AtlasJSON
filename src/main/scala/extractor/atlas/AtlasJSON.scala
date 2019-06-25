@@ -2,14 +2,10 @@ package extractor.atlas
 
 import scala.io.{BufferedSource, Source}
 import java.io.{File, FileInputStream, FileOutputStream}
-import java.text.SimpleDateFormat
 import java.util
-import java.util.Calendar
-
 import org.apache.poi.ss.usermodel.{HorizontalAlignment, VerticalAlignment}
-import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFCellStyle, XSSFRow, XSSFSheet, XSSFWorkbook}
+import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFCellStyle, XSSFFont, XSSFRow, XSSFSheet, XSSFWorkbook}
 import org.snakeyaml.engine.v1.api.{Load, LoadSettings, LoadSettingsBuilder}
-
 import scala.jdk.CollectionConverters._
 
 object AtlasJSON extends App {
@@ -41,12 +37,7 @@ object AtlasJSON extends App {
   }
 
   // Parse command line arguments
-  val arg: Args = try Args(args.toList)
-  catch {
-    case e: Exception =>
-      Args.usage(e.getMessage)
-      sys.exit(-1)
-    }
+  val arg: Args = ArgsParser(args.toList)
 
   // Get fields to extract from Config file
   val fields: List[(String, String)] = parseConfig(arg.configFilename)
@@ -82,49 +73,47 @@ object AtlasJSON extends App {
       }
     else new XSSFWorkbook()
 
-  // Add Sheet with name searchParametrs.typeName
-  val typeName = report.searchParameters.typeName.getOrElse("")
-  val sheet: XSSFSheet = try workbook.createSheet(typeName)
-  catch {
-    case _: java.lang.IllegalArgumentException =>
-      val today: String = new SimpleDateFormat("_yyyy_MM_dd_H_mm").format(Calendar.getInstance().getTime)
-      workbook.createSheet(typeName + today)
+  // Create or open Sheet with name searchParameters.typeName
+  val typeName: String = report.searchParameters.typeName.getOrElse("")
+  val sheet: XSSFSheet = try {
+    val getSheet = workbook.getSheet(typeName)
+    if (getSheet != null) getSheet
+    else workbook.createSheet(typeName)
+  } catch {
     case e: Exception =>
-      println(e)
       println(s"Error creating sheet $typeName in Excel file ${arg.excelFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
 
   // Create a header for new sheet
-  val font = workbook.createFont()
+  val font: XSSFFont = workbook.createFont()
   font.setBold(true)
   font.setItalic(false)
 
-  val style = workbook.createCellStyle
+  val style: XSSFCellStyle = workbook.createCellStyle
   style.setAlignment(HorizontalAlignment.CENTER)
   style.setVerticalAlignment(VerticalAlignment.CENTER)
   style.setFont(font)
   
   val row0: XSSFRow = sheet.createRow(0)
-  row0.setRowStyle(rowStyle)
-  
-  var c: Int = 0
-  fields.foreach { f =>
-    row0.createCell(c).setCellValue(f._2)
-    c = c + 1
+  row0.setRowStyle(style)
+
+  fields.zipWithIndex.foreach { f =>
+    val cell: XSSFCell = row0.createCell(f._2)
+    cell.setCellValue(f._1._2)
+    cell.setCellStyle(style)
   }
 
   // Put all entities on the new sheet
-  var r: Int = 1
-  report.entities.foreach { e =>
-    val row: XSSFRow = sheet.createRow(r)
-    c = 0
-    fields.foreach { f =>
-      row.createCell(c).setCellValue(e.get(f._1))
-      c = c + 1
+  report.entities.zipWithIndex.foreach { e =>
+    val row: XSSFRow = sheet.createRow(e._2 + 1)
+    fields.zipWithIndex.foreach { f =>
+      row.createCell(f._2).setCellValue(e._1.get(f._1._1))
     }
-    r += 1
   }
+
+  // Auto size columns
+  (0 until fields.length).foreach(sheet.autoSizeColumn)
 
   // Write and close Excel file
   try workbook.write(new FileOutputStream(arg.excelFilename))
