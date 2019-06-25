@@ -4,4 +4,4 @@ This simple tool take output from [Atlas](atlas.apache.org) REST API in JSON for
 
 Tested on Basic search.
 
-At this time save to Excel only fixed fields (will be corrected in the future).
+Entities fields to extract should be provided in the configuration file in YAML format.
