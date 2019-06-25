@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.{XSSFCell, XSSFCellStyle, XSSFFont, XSSFRow
 import org.snakeyaml.engine.v1.api.{Load, LoadSettings, LoadSettingsBuilder}
 import scala.jdk.CollectionConverters._
 
-object AtlasJSON extends App {
+object AtlasJSON2Excel extends App {
 
   // Function to parse config file and check fields to extract
   def parseConfig(filename: String): List[(String, String)] = {
