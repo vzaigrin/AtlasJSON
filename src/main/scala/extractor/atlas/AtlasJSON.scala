@@ -62,6 +62,9 @@ object AtlasJSON extends App {
       sys.exit(-1)
   }
 
+  // Offset for current search
+  val offset: Int = report.searchParameters.offset
+
   // Open or create Excel file
   val workbook: XSSFWorkbook =
     if (new File(arg.excelFilename).exists())
@@ -85,28 +88,30 @@ object AtlasJSON extends App {
       sys.exit(-1)
   }
 
-  // Create a header for new sheet
-  val font: XSSFFont = workbook.createFont()
-  font.setBold(true)
-  font.setItalic(false)
+  // Create a header for new sheet if start with zero offset
+  if (offset == 0) {
+    val font: XSSFFont = workbook.createFont()
+    font.setBold(true)
+    font.setItalic(false)
 
-  val style: XSSFCellStyle = workbook.createCellStyle
-  style.setAlignment(HorizontalAlignment.CENTER)
-  style.setVerticalAlignment(VerticalAlignment.CENTER)
-  style.setFont(font)
-  
-  val row0: XSSFRow = sheet.createRow(0)
-  row0.setRowStyle(style)
+    val style: XSSFCellStyle = workbook.createCellStyle
+    style.setAlignment(HorizontalAlignment.CENTER)
+    style.setVerticalAlignment(VerticalAlignment.CENTER)
+    style.setFont(font)
 
-  fields.zipWithIndex.foreach { f =>
-    val cell: XSSFCell = row0.createCell(f._2)
-    cell.setCellValue(f._1._2)
-    cell.setCellStyle(style)
+    val row0: XSSFRow = sheet.createRow(0)
+    row0.setRowStyle(style)
+
+    fields.zipWithIndex.foreach { f =>
+      val cell: XSSFCell = row0.createCell(f._2)
+      cell.setCellValue(f._1._2)
+      cell.setCellStyle(style)
+    }
   }
 
   // Put all entities on the new sheet
   report.entities.zipWithIndex.foreach { e =>
-    val row: XSSFRow = sheet.createRow(e._2 + 1)
+    val row: XSSFRow = sheet.createRow(e._2 + offset + 1)
     fields.zipWithIndex.foreach { f =>
       row.createCell(f._2).setCellValue(e._1.get(f._1._1))
     }
