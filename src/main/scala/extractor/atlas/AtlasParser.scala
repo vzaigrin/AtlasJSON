@@ -36,7 +36,7 @@ case class Entity(typeName: Option[String],
         case "guid" => guid.getOrElse("")
         case "status" => status.getOrElse("")
         case "displayText" => displayText.getOrElse("")
-        case "classificationNames" => classificationNames.map(_.getOrElse("")).mkString(" ")
+        case "classificationNames" => classificationNames.map(_.getOrElse("")).mkString(", ")
         case f => s"no such variable $f"
       }
       case f => s"no such variable $f"
