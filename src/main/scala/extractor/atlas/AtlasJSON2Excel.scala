@@ -55,79 +55,83 @@ object AtlasJSON2Excel extends App {
   }
 
   // Parse input JSON file
-  val report: AtlasReport = try AtlasReport(lines)
+  val report: AtlasReport = try AtlasParser(lines)
   catch {
     case e: Exception =>
       println(s"Error processing JSON file ${arg.jsonFilename}: ${e.getMessage}")
       sys.exit(-1)
   }
 
-  // Offset for current search
-  val offset: Int = report.searchParameters.offset
+  // Export to Excel if JSON has Entities
+  if (report.entities.isDefined) {
+    // Offset for current search
+    val offset: Int = report.searchParameters.offset
 
-  // Open or create Excel file
-  val workbook: XSSFWorkbook =
-    if (new File(arg.excelFilename).exists())
-      try new XSSFWorkbook(new FileInputStream(new File(arg.excelFilename)))
-      catch {
-        case e: Exception =>
-          println(s"Error creating excel file ${arg.excelFilename}: ${e.getMessage}")
-          sys.exit(-1)
+    // Open or create Excel file
+    val workbook: XSSFWorkbook =
+      if (new File(arg.excelFilename).exists())
+        try new XSSFWorkbook(new FileInputStream(new File(arg.excelFilename)))
+        catch {
+          case e: Exception =>
+            println(s"Error creating excel file ${arg.excelFilename}: ${e.getMessage}")
+            sys.exit(-1)
+        }
+      else new XSSFWorkbook()
+
+    // Create or open Sheet with name searchParameters.typeName
+    val typeName: String = report.searchParameters.typeName
+    val sheet: XSSFSheet = try {
+      val getSheet = workbook.getSheet(typeName)
+      if (getSheet != null) getSheet
+      else workbook.createSheet(typeName)
+    } catch {
+      case e: Exception =>
+        println(s"Error creating sheet $typeName in Excel file ${arg.excelFilename}: ${e.getMessage}")
+        sys.exit(-1)
+    }
+
+    // Create a header for new sheet if start with zero offset
+    if (offset == 0) {
+      val font: XSSFFont = workbook.createFont()
+      font.setBold(true)
+      font.setItalic(false)
+
+      val style: XSSFCellStyle = workbook.createCellStyle
+      style.setAlignment(HorizontalAlignment.CENTER)
+      style.setVerticalAlignment(VerticalAlignment.CENTER)
+      style.setFont(font)
+
+      val row0: XSSFRow = sheet.createRow(0)
+      row0.setRowStyle(style)
+
+      fields.zipWithIndex.foreach { f =>
+        val cell: XSSFCell = row0.createCell(f._2)
+        cell.setCellValue(f._1._2)
+        cell.setCellStyle(style)
       }
-    else new XSSFWorkbook()
-
-  // Create or open Sheet with name searchParameters.typeName
-  val typeName: String = report.searchParameters.typeName.getOrElse("")
-  val sheet: XSSFSheet = try {
-    val getSheet = workbook.getSheet(typeName)
-    if (getSheet != null) getSheet
-    else workbook.createSheet(typeName)
-  } catch {
-    case e: Exception =>
-      println(s"Error creating sheet $typeName in Excel file ${arg.excelFilename}: ${e.getMessage}")
-      sys.exit(-1)
-  }
-
-  // Create a header for new sheet if start with zero offset
-  if (offset == 0) {
-    val font: XSSFFont = workbook.createFont()
-    font.setBold(true)
-    font.setItalic(false)
-
-    val style: XSSFCellStyle = workbook.createCellStyle
-    style.setAlignment(HorizontalAlignment.CENTER)
-    style.setVerticalAlignment(VerticalAlignment.CENTER)
-    style.setFont(font)
-
-    val row0: XSSFRow = sheet.createRow(0)
-    row0.setRowStyle(style)
-
-    fields.zipWithIndex.foreach { f =>
-      val cell: XSSFCell = row0.createCell(f._2)
-      cell.setCellValue(f._1._2)
-      cell.setCellStyle(style)
     }
-  }
 
-  // Put all entities on the new sheet
-  report.entities.zipWithIndex.foreach { e =>
-    val row: XSSFRow = sheet.createRow(e._2 + offset + 1)
-    fields.zipWithIndex.foreach { f =>
-      row.createCell(f._2).setCellValue(e._1.get(f._1._1))
+    // Put all entities on the new sheet
+    report.entities.get.zipWithIndex.foreach { e =>
+      val row: XSSFRow = sheet.createRow(e._2 + offset + 1)
+      fields.zipWithIndex.foreach { f =>
+        row.createCell(f._2).setCellValue(e._1.get(f._1._1))
+      }
     }
-  }
 
-  // Auto size columns
-  (0 until fields.length).foreach(sheet.autoSizeColumn)
+    // Auto size columns
+    (0 until fields.length).foreach(sheet.autoSizeColumn)
 
-  // Write and close Excel file
-  try workbook.write(new FileOutputStream(arg.excelFilename))
-  catch {
-    case e: Exception =>
-      println(s"Error writing Excel file ${arg.excelFilename}: ${e.getMessage}")
-      sys.exit(-1)
-  }
-  finally {
-    workbook.close()
-  }
+    // Write and close Excel file
+    try workbook.write(new FileOutputStream(arg.excelFilename))
+    catch {
+      case e: Exception =>
+        println(s"Error writing Excel file ${arg.excelFilename}: ${e.getMessage}")
+        sys.exit(-1)
+    }
+    finally {
+      workbook.close()
+    }
+  } else
+    println(s"No Entities in JSON file ${arg.jsonFilename}")
 }

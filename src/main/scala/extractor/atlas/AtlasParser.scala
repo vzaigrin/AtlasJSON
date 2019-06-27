@@ -1,7 +1,8 @@
 package extractor.atlas
 
 import java.util.Date
-import io.circe.{Decoder, HCursor, parser}
+import io.circe.parser.parse
+import io.circe.{Decoder, HCursor}
 
 case class Attribute(owner: Option[String],
                      createTime: Option[String],
@@ -44,17 +45,27 @@ case class Entity(typeName: Option[String],
   }
 }
 
-case class SearchParameters(typeName: Option[String],
+case class SearchParameters(typeName: String,
                             excludeDeletedEntities: Boolean,
                             includeClassificationAttributes: Boolean,
                             limit: Int,
                             offset: Int
                            )
-case class AtlasReport(queryType: String, searchParameters: SearchParameters, entities: List[Entity])
 
-object AtlasReport {
-  def apply(input: String): AtlasReport = AtlasParser().decode(input)
+object SearchParameters {
+  implicit val searchParameters: Decoder[SearchParameters] =
+    (hCursor: HCursor) => {
+      for {
+        typeName <- hCursor.get[String]("typeName")
+        excludeDeletedEntities <- hCursor.get[Boolean]("excludeDeletedEntities")
+        includeClassificationAttributes <- hCursor.get[Boolean]("includeClassificationAttributes")
+        limit <- hCursor.get[Int]("limit")
+        offset <- hCursor.get[Int]("offset")
+      } yield SearchParameters(typeName, excludeDeletedEntities, includeClassificationAttributes, limit, offset)
+    }
 }
+
+case class AtlasReport(queryType: String, searchParameters: SearchParameters, entities: Option[List[Entity]])
 
 class AtlasParser {
   implicit val attributeDecoder: Decoder[Attribute] =
@@ -80,25 +91,6 @@ class AtlasParser {
       } yield Entity(typeName, attributes, guid, status, displayText, classificationNames)
     }
 
-  implicit val searchParameters: Decoder[SearchParameters] =
-    (hCursor: HCursor) => {
-      for {
-        typeName <- hCursor.get[Option[String]]("typeName")
-        excludeDeletedEntities <- hCursor.get[Boolean]("excludeDeletedEntities")
-        includeClassificationAttributes <- hCursor.get[Boolean]("includeClassificationAttributes")
-        limit <- hCursor.get[Int]("limit")
-        offset <- hCursor.get[Int]("offset")
-      } yield SearchParameters(typeName, excludeDeletedEntities, includeClassificationAttributes, limit, offset)
-    }
-
-  implicit val atlasDecoder: Decoder[AtlasReport] =
-    (hCursor: HCursor) => {
-      for {
-        queryType <- hCursor.get[String]("queryType")
-        searchParameters <- hCursor.get[SearchParameters]("searchParameters")
-        entities <- hCursor.get[List[Entity]]("entities")
-      } yield AtlasReport(queryType, searchParameters, entities)
-    }
 
   def getDate(dt: Option[Long]): Option[String] = {
     dt match {
@@ -108,13 +100,31 @@ class AtlasParser {
   }
 
   def decode(input: String): AtlasReport = {
-    parser.decode[AtlasReport](input) match {
-      case Left(error) => throw new Exception(error.getMessage)
-      case Right(value) => value
+    parse(input) match {
+      case Left(_) => throw new Exception("Error: can't parse JSON")
+      case Right(value) =>
+        val cursor: HCursor = value.hcursor
+
+        val queryType: String = cursor.downField("queryType").as[String].getOrElse("ERROR")
+        if (queryType == "ERROR") throw new Exception("Error: can't parse JSON. No 'queryType'")
+
+        val searchParameters: SearchParameters =
+          cursor.get[SearchParameters]("searchParameters") match {
+            case Left(_) => throw new Exception("Error: can't parse JSON. No 'searchParameters'")
+            case Right(value) => value
+          }
+
+        val entities: Option[List[Entity]] =
+          cursor.get[List[Entity]]("entities") match {
+            case Left(_) => None
+            case Right(value) => Some(value)
+          }
+
+        AtlasReport(queryType, searchParameters, entities)
     }
   }
 }
 
 object AtlasParser {
-  def apply() = new AtlasParser()
+  def apply(input: String): AtlasReport = new AtlasParser().decode(input)
 }
