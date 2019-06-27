@@ -111,13 +111,13 @@ class AtlasParser {
         val searchParameters: SearchParameters =
           cursor.get[SearchParameters]("searchParameters") match {
             case Left(_) => throw new Exception("Error: can't parse JSON. No 'searchParameters'")
-            case Right(value) => value
+            case Right(v) => v
           }
 
         val entities: Option[List[Entity]] =
           cursor.get[List[Entity]]("entities") match {
             case Left(_) => None
-            case Right(value) => Some(value)
+            case Right(v) => Some(v)
           }
 
         AtlasReport(queryType, searchParameters, entities)
